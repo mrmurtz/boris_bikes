@@ -10,6 +10,6 @@ describe "boris bikes" do
     expect(docking_station).to respond_to(:release_bike)
   end
   it "when asking docking_station to release bike, we get 'Bike'" do
-    expect(docking_station(release_bike)).to eq "bike"
+    expect(docking_station.release_bike).to eq "bike"
   end
 end
