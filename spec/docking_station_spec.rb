@@ -9,12 +9,12 @@ describe "docking station" do
     expect(docking_station).to respond_to(:release_bike)
   end
 
-  it "when asking docking_station to release bike, we get 'Bike'" do
-    expect(docking_station.release_bike).to eq "bike"
-  end
-
   it "When asking if bike is working, passes true." do
     expect(docking_station.working(bike)).to eq true
   end
 
+  it "released working bikes" do
+    bike = docking_station.release_bike
+    expect(bike).to be_working
+  end
 end
