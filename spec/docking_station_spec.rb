@@ -17,7 +17,10 @@ describe DockingStation do
     expect(subject.dock(bike)).to eq bike
   end
 
-end
+  it 'returns docked bike instance when asked .bike' do
+    bike = Bike.new
+    subject.dock(bike)
+    expect(subject.bike).to eq bike
+  end
 
-# expect dock_bike method called on DockingStation to
-# .. add a Bike instance to station
+end
