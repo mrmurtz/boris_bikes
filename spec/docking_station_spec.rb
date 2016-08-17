@@ -10,4 +10,12 @@ describe DockingStation do
     bike = subject.release_bike
     expect(bike).to be_working
   end
+
+  it 'docking bike at docking station' do
+    expect
+  end
+
 end
+
+# expect dock_bike method called on DockingStation to
+# .. add a Bike instance to station
