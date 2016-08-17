@@ -31,10 +31,6 @@ describe DockingStation do
     expect(subject.bikes).to eq [bike]
   end
 
-  # it 'initializes with empty bike array' do
-  #   expect(subject.bike).to eq []
-  # end
-
   describe "#release_bike" do
     it 'releases a bike' do
       bike = Bike.new

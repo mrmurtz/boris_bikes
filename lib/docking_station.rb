@@ -13,8 +13,12 @@ class DockingStation
   end
 
   def dock(bike)
-    fail 'Dock full' unless @bikes.size < 20
+    fail 'Dock full' if full? == false
     @bikes << bike
+  end
+
+  def full?
+    @bikes.size < 20 ? true : false
   end
 
 end
