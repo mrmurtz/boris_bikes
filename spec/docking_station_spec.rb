@@ -11,10 +11,18 @@ describe DockingStation do
   #   bike = subject.release_bike
   #   expect(bike).to be_working
   # end
+  describe '#dock(bike)' do
+    it 'docks bike at docking station' do
+      bike = Bike.new
+      expect(subject.dock(bike)).to eq bike
+    end
 
-  it 'docks bike at docking station' do
-    bike = Bike.new
-    expect(subject.dock(bike)).to eq bike
+    it 'raises error when docking a bike in a full dock' do
+      bike = Bike.new
+      subject.dock(bike)
+      expect{subject.dock(bike)}.to raise_error 'Dock full'
+    end
+
   end
 
   it 'returns docked bike instance when asked .bike' do
@@ -22,8 +30,6 @@ describe DockingStation do
     subject.dock(bike)
     expect(subject.bike).to eq bike
   end
-
-
 
   # it 'initializes with empty bike array' do
   #   expect(subject.bike).to eq []
