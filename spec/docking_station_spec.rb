@@ -23,20 +23,22 @@ describe DockingStation do
     expect(subject.bike).to eq bike
   end
 
-  # it 'says fail when releasing bike from empty docking station' do
-  #   expect{subject.release_bike}.to raise_error
-  # end
+
 
   # it 'initializes with empty bike array' do
   #   expect(subject.bike).to eq []
   # end
 
-describe "#release_bike" do
-  it 'releases a bike' do
-    bike = Bike.new
-    subject.dock(bike)
-    expect(subject.release_bike).to eq bike
+  describe "#release_bike" do
+    it 'releases a bike' do
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject.release_bike).to eq bike
+    end
+
+    it 'raises error when releasing bike from empty docking station' do
+      expect{subject.release_bike}.to raise_error 'No bikes available'
+    end
   end
-end
 
 end
