@@ -12,16 +12,19 @@ describe DockingStation do
   #   expect(bike).to be_working
   # end
   describe '#dock(bike)' do
-    it 'docks bike at docking station' do
-      bike = Bike.new
+    it 'docks a fixed bike at docking station' do
+      bike = double(:bike, broken?: false)
+      expect(subject.dock(bike)).to eq [bike]
+    end
+
+    it 'docks a broken bike at docking station' do
+      bike = double(:bike, broken?: true)
       expect(subject.dock(bike)).to eq [bike]
     end
 
     it 'docks the bike and the bike lives in the docking station' do
-      bike = Bike.new
-      bike2 = Bike.new
-      subject.dock(bike)
-      expect(subject.dock(bike2)).to include bike
+      bike = double(:bike, broken?: false)
+      expect(subject.dock(bike)).to include bike
     end
 
     it 'raises error when docking a bike in a full dock' do
@@ -61,25 +64,19 @@ describe DockingStation do
       expect(bike).to be_working
     end
 
-    it "releases working bikes" do
-      subject.dock String.new("I'm not a bike!")
-      bike = subject.release_bike
-      expect(bike).to be_working
+    it "releases working bikes (using double)" do
+      bike = double(:bike, broken?: false)
+      subject.dock(bike)
+      expect(subject.release_bike).to be bike
     end
 
-    it "releases working bikes (using double)" do
-      subject.dock double(:bike)
-      bike = subject.release_bike
-      expect(bike).to be_working
-    end
 
     it 'raises error when releasing bike from empty docking station' do
       expect{subject.release_bike}.to raise_error 'No working bikes available'
     end
 
     it 'does not release a broken bike'do
-      bike = Bike.new
-      bike.report_broken
+      bike = double(:bike, broken?: true)
       subject.dock(bike)
       expect{subject.release_bike}.to raise_error 'No working bikes available'
     end
