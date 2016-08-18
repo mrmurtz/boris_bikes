@@ -55,6 +55,24 @@ describe DockingStation do
       expect(subject.release_bike).to eq bike
     end
 
+    it 'releases working bikes' do
+      subject.dock(Bike.new)
+      bike = subject.release_bike
+      expect(bike).to be_working
+    end
+
+    it "releases working bikes" do
+      subject.dock String.new("I'm not a bike!")
+      bike = subject.release_bike
+      expect(bike).to be_working
+    end
+
+    it "releases working bikes (using double)" do
+      subject.dock double(:bike)
+      bike = subject.release_bike
+      expect(bike).to be_working
+    end
+
     it 'raises error when releasing bike from empty docking station' do
       expect{subject.release_bike}.to raise_error 'No working bikes available'
     end
