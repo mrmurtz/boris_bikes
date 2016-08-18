@@ -18,17 +18,28 @@ describe DockingStation do
     end
 
     it 'raises error when docking a bike in a full dock' do
-      DockingStation::DEFAULT_CAPACITY.times {subject.dock(Bike.new)}
+      subject.capacity.times {subject.dock(Bike.new)}
       expect{subject.dock(Bike.new)}.to raise_error 'Dock full'
     end
 
+    it 'has a default capacity' do
+      expect(subject.capacity).to eq described_class::DEFAULT_CAPACITY
+    end
+
+    it "accepts an argument of 30 bikes capacity" do
+      subject {DockingStation.new(30)}
+      subject.capacity.times{subject.dock(Bike.new)}
+      expect{subject.dock(Bike.new)}.to raise_error 'Dock full'
+    end
   end
 
-  it 'returns docked bike instance when asked .bike' do
-    bike = Bike.new
-    subject.dock(bike)
-    expect(subject.bikes).to eq [bike]
-  end
+
+  # Feels like this is redundant
+  # it 'returns docked bike instance when asked .bike' do
+  #   bike = Bike.new
+  #   subject.dock(bike)
+  #   expect(subject.bikes).to eq [bike]
+  # end
 
   describe "#release_bike" do
     it 'releases a bike' do
