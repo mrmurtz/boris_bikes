@@ -1,6 +1,6 @@
 class Van
 
-  attr_accessor :working_bikes
+  attr_accessor :working_bikes, :broken_bikes
 
   def initialize
     @working_bikes = []
@@ -9,10 +9,10 @@ class Van
 
   def collect(destination, target)
     if target == :working
-    @working_bikes << destination.working_bikes
+    @working_bikes += destination.working_bikes
     destination.working_bikes = []
     elsif target == :broken
-    @broken_bikes << destination.broken_bikes
+    @broken_bikes += destination.broken_bikes
     destination.broken_bikes =[]
   end
 end
