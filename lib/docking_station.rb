@@ -1,18 +1,20 @@
 require_relative "bike"
+require_relative "van"
+require_relative "garage"
 
 class DockingStation
-  attr_accessor :capacity
+  attr_accessor :capacity, :working_bikes, :broken_bikes
   DEFAULT_CAPACITY = 20
 
   def initialize(capacity= DEFAULT_CAPACITY)
-    @bikes = []
+    @working_bikes = []
     @broken_bikes = []
     @capacity = capacity
   end
 
   def release_bike
     fail 'No working bikes available' if empty?
-    bikes.pop
+    working_bikes.pop
   end
 
   def dock(bike)
@@ -20,7 +22,7 @@ class DockingStation
     if bike.broken? == true
       @broken_bikes << bike
     else
-    bikes << bike
+    working_bikes << bike
     end
   end
 
@@ -29,11 +31,11 @@ class DockingStation
   attr_reader :bikes
 
     def full?
-      bikes.size >= capacity
+      @working_bikes.count + @broken_bikes.count >= capacity
     end
 
     def empty?
-      bikes.empty?
+      working_bikes.empty?
     end
 
 
